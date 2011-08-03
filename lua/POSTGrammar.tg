@@ -926,7 +926,7 @@ transform constructor (PAST;Val) :language('PIR') {
     unless it goto FINISH
     $P0 = shift it
     $I0 = does $P0, 'array'
-    if $I0 goto L3
+    if $I0 goto NAMED_ARG
     $P2 = get_hll_global ['POST'], 'Ops'
     kpost = $P2.'new'('node'=>node)
     result = kpost.'unique'('$P')
@@ -951,7 +951,8 @@ transform constructor (PAST;Val) :language('PIR') {
     $P1 = ops.'push_pirop'('call', 'tconstruct', table, kpost, $S0)
     $P1.'result'($S1)
     goto FINISH
-  L3:
+  NAMED_ARG:
+    # Prepare a named argument for insertion into our table.
     $P1 = $P0[0]
     kpost = tree.'get'('post', $P1)
     $P1 = $P0[1]
