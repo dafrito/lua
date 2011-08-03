@@ -259,6 +259,7 @@ transform call (PAST;Op) :language('PIR') {
     .local pmc arglist, it, cpost
     new arglist, 'ResizableStringArray'
     it = node.'iterator'()
+  FUNCTION:
     $P0 = shift it
     $P1 = tree.'get'('post', $P0)
     ops.'push'($P1)
