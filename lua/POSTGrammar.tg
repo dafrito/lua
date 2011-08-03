@@ -267,7 +267,7 @@ transform call (PAST;Op) :language('PIR') {
     $S0 = funcpost.'result'()
     push arglist, $S0
   ARGUMENT:
-    unless it goto L2
+    unless it goto FINISH
     $P0 = shift it
     cpost = tree.'get'('post', $P0)
     ops.'push'(cpost)
@@ -282,7 +282,7 @@ transform call (PAST;Op) :language('PIR') {
   PUSH_ARG:
     push arglist, $S0
     goto ARGUMENT
-  L2:
+  FINISH:
     ops.'push_pirop'('call', arglist :flat, 'node'=>node, 'result'=>'')
     null $P0
     set_hll_global ['Lua';'POST'], '$?environ', $P0
