@@ -260,6 +260,7 @@ transform call (PAST;Op) :language('PIR') {
     new arglist, 'ResizableStringArray'
     it = node.'iterator'()
   FUNCTION:
+    # Retrieve our target function.
     .local pmc func, funcpost
     func = shift it
     funcpost = tree.'get'('post', func)
@@ -276,6 +277,9 @@ transform call (PAST;Op) :language('PIR') {
     if it goto PUSH_ARG
     ($I0, argument) = argpost.'has_call_in_last_op'()
     unless $I0 goto PUSH_ARG
+    # The last argument is a function call, so slurp up the returned
+    # values and immediately flatten them so they are passed directly
+    # to our target function.
     $S1 = '(' . $S0
     $S1 .= ' :slurpy)'
     argument.'result'($S1)
