@@ -256,7 +256,7 @@ transform call (PAST;Op) :language('PIR') {
     .local pmc ops
     $P0 = get_hll_global ['POST'], 'Ops'
     ops = $P0.'new'('node'=>node)
-    .local pmc arglist, it, cpost
+    .local pmc arglist, it
     new arglist, 'ResizableStringArray'
     it = node.'iterator'()
   FUNCTION:
@@ -268,7 +268,7 @@ transform call (PAST;Op) :language('PIR') {
     push arglist, $S0
   ARGUMENT:
     unless it goto FINISH
-    .local pmc argument
+    .local pmc argument, cpost
     argument = shift it
     cpost = tree.'get'('post', argument)
     ops.'push'(cpost)
