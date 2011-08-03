@@ -943,6 +943,8 @@ transform constructor (PAST;Val) :language('PIR') {
     $P0 = shift it
     $I0 = does $P0, 'array'
     if $I0 goto NAMED_ARG
+  POSITIONAL_ARG:
+    # Prepare a positional argument for insertion into our table.
     $P2 = get_hll_global ['POST'], 'Ops'
     kpost = $P2.'new'('node'=>node)
     result = kpost.'unique'('$P')
@@ -951,10 +953,14 @@ transform constructor (PAST;Val) :language('PIR') {
     inc i
     kpost.'push_pirop'('set', result, $S0)
     kpost.'result'(result)
-    vpost = tree.'get'('post', $P0)
+    vpost = tree.'get'('post', argument)
     if it goto SET_ARG
     $I0 = vpost.'has_call_in_last_op'()
     unless $I0 goto SET_ARG
+  LAST_SLURPED_ARG:
+    # The last argument is a function call, so slurp up the returned
+    # values and immediately flatten them so they are inserted directly
+    # into our table.
     ops.'push'(kpost)
     $P0 = vpost.'pop'()
     vpost.'push'($P0)
