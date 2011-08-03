@@ -260,10 +260,11 @@ transform call (PAST;Op) :language('PIR') {
     new arglist, 'ResizableStringArray'
     it = node.'iterator'()
   FUNCTION:
-    $P0 = shift it
-    $P1 = tree.'get'('post', $P0)
-    ops.'push'($P1)
-    $S0 = $P1.'result'()
+    .local pmc func, funcpost
+    func = shift it
+    funcpost = tree.'get'('post', func)
+    ops.'push'(funcpost)
+    $S0 = funcpost.'result'()
     push arglist, $S0
   ARGUMENT:
     unless it goto L2
