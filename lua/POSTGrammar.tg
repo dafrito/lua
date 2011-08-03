@@ -290,6 +290,7 @@ transform call (PAST;Op) :language('PIR') {
     if it goto PUSH_RESULT
     ($I0, argument) = argpost.'has_call_in_last_op'()
     unless $I0 goto PUSH_RESULT
+  LAST_SLURPED_ARG:
     # The last argument is a function call, so slurp up the returned
     # values and immediately flatten them so they are passed directly
     # to our target function.
