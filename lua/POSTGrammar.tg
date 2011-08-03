@@ -8,6 +8,8 @@
 A grammar for transforming the abstract syntax tree (PAST)
 into an opcode syntax tree (POST).
 
+=over 4
+
 =cut
 
 grammar Lua::POST::Grammar is TGE::Grammar;
@@ -251,6 +253,16 @@ transform cmp (PAST;Op) :language('PIR') {
     .return (ops)
 }
 
+=item transform call
+
+Invoke a function. Each node contains a retrievable value. The first node must
+contain the target function itself. Subsequent nodes must contain retrievable
+values that will be passed to the target function.
+
+If the last argument is a function call, its returned values are passed directly
+as additional arguments to C<call>'s target function.
+
+=cut
 
 transform call (PAST;Op) :language('PIR') {
     .local pmc ops
@@ -1142,3 +1154,6 @@ transform keyed (PAST;Var) :language('PIR') {
     .tailcall tree.'get'('package', node)
 }
 
+=back
+
+=cut
