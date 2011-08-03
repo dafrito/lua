@@ -257,6 +257,7 @@ transform call (PAST;Op) :language('PIR') {
     $P0 = get_hll_global ['POST'], 'Ops'
     ops = $P0.'new'('node'=>node)
     .local pmc arglist, it
+    .local string result
     new arglist, 'ResizableStringArray'
     it = node.'iterator'()
   FUNCTION:
@@ -265,27 +266,27 @@ transform call (PAST;Op) :language('PIR') {
     func = shift it
     funcpost = tree.'get'('post', func)
     ops.'push'(funcpost)
-    $S0 = funcpost.'result'()
-    push arglist, $S0
+    result = funcpost.'result'()
+    push arglist, result
   ARGUMENT:
     unless it goto FINISH
     .local pmc argument, argpost
     argument = shift it
     argpost = tree.'get'('post', argument)
     ops.'push'(argpost)
-    $S0 = argpost.'result'()
-    if it goto PUSH_ARG
+    result = argpost.'result'()
+    if it goto PUSH_RESULT
     ($I0, argument) = argpost.'has_call_in_last_op'()
-    unless $I0 goto PUSH_ARG
+    unless $I0 goto PUSH_RESULT
     # The last argument is a function call, so slurp up the returned
     # values and immediately flatten them so they are passed directly
     # to our target function.
-    $S1 = '(' . $S0
+    $S1 = '(' . result
     $S1 .= ' :slurpy)'
     argument.'result'($S1)
-    $S0 .= ' :flat'
-  PUSH_ARG:
-    push arglist, $S0
+    result .= ' :flat'
+  PUSH_RESULT:
+    push arglist, result
     goto ARGUMENT
   FINISH:
     ops.'push_pirop'('call', arglist :flat, 'node'=>node, 'result'=>'')
