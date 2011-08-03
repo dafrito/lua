@@ -267,7 +267,7 @@ transform call (PAST;Op) :language('PIR') {
     funcpost = tree.'get'('post', func)
     ops.'push'(funcpost)
     result = funcpost.'result'()
-    push arglist, result
+    goto PUSH_RESULT
   ARGUMENT:
     unless it goto FINISH
     .local pmc argument, argpost
