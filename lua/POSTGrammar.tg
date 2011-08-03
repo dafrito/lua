@@ -922,7 +922,7 @@ transform constructor (PAST;Val) :language('PIR') {
     .local int i
     i = 1
     it = node.'iterator'()
-  L1:
+  ARGUMENT:
     unless it goto FINISH
     $P0 = shift it
     $I0 = does $P0, 'array'
@@ -965,7 +965,7 @@ transform constructor (PAST;Val) :language('PIR') {
     key .= $S0
     key .= ']'
     ops.'push_pirop'('set', key, vpost)
-    goto L1
+    goto ARGUMENT
   FINISH:
     .return (ops)
 }
