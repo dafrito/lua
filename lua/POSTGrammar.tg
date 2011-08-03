@@ -957,6 +957,7 @@ transform constructor (PAST;Val) :language('PIR') {
     $P1 = $P0[1]
     vpost = tree.'get'('post', $P1)
   L4:
+    # Insert this value into our table. Upon execution, table[kpost] will equal vpost.
     ops.'push'(kpost)
     ops.'push'(vpost)
     .local string key
@@ -965,6 +966,7 @@ transform constructor (PAST;Val) :language('PIR') {
     $S0 = kpost.'result'()
     key .= $S0
     key .= ']'
+    # key is of the form "table[kpost.result]", where table is a register.
     ops.'push_pirop'('set', key, vpost)
     goto ARGUMENT
   FINISH:
