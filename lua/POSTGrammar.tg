@@ -918,7 +918,7 @@ transform constructor (PAST;Val) :language('PIR') {
     ops.'push_pirop'('new', table, '"LuaTable"')
     ops.'result'(table)
     .local pmc it, kpost, vpost
-    .local string key, result
+    .local string result
     .local int i
     i = 1
     it = node.'iterator'()
@@ -959,6 +959,7 @@ transform constructor (PAST;Val) :language('PIR') {
   L4:
     ops.'push'(kpost)
     ops.'push'(vpost)
+    .local string key
     key = clone table
     key .= '['
     $S0 = kpost.'result'()
