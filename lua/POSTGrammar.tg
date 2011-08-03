@@ -264,7 +264,7 @@ transform call (PAST;Op) :language('PIR') {
     ops.'push'($P1)
     $S0 = $P1.'result'()
     push arglist, $S0
-  L1:
+  ARGUMENT:
     unless it goto L2
     $P0 = shift it
     cpost = tree.'get'('post', $P0)
@@ -279,7 +279,7 @@ transform call (PAST;Op) :language('PIR') {
     $S0 .= ' :flat'
   L3:
     push arglist, $S0
-    goto L1
+    goto ARGUMENT
   L2:
     ops.'push_pirop'('call', arglist :flat, 'node'=>node, 'result'=>'')
     null $P0
