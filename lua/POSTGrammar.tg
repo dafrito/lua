@@ -956,17 +956,18 @@ transform constructor (PAST;Val) :language('PIR') {
     kpost.'result'(result)
     vpost = tree.'get'('post', argument)
     if it goto SET_ARG
-    ($I0, $P0) = vpost.'has_call_in_last_op'()
+    .local pmc func
+    ($I0, func) = vpost.'has_call_in_last_op'()
     unless $I0 goto SET_ARG
   LAST_SLURPED_ARG:
     # The last argument is a function call, so slurp up the returned
     # values and immediately flatten them so they are inserted directly
     # into our table.
     ops.'push'(kpost)
-    $S0 = $P0.'result'()
+    $S0 = func.'result'()
     $S1 = '(' . $S0
     $S1 .= ' :slurpy)'
-    $P0.'result'($S1)
+    func.'result'($S1)
     ops.'push'(vpost)
     $S0 .= ' :flat'
     ops.'push_pirop'('call', 'tconstruct', table, kpost, $S0, 'result'=>$S1)
