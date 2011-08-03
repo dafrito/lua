@@ -262,6 +262,9 @@ values that will be passed to the target function.
 If the last argument is a function call, its returned values are passed directly
 as additional arguments to C<call>'s target function.
 
+Other transforms use a similar process to retrieve arguments, such as
+C<transform callmethod>, C<transform return>, and C<transform constructor>.
+
 =cut
 
 transform call (PAST;Op) :language('PIR') {
