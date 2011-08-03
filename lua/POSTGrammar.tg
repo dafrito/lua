@@ -971,8 +971,7 @@ transform constructor (PAST;Val) :language('PIR') {
     $P0.'result'($S1)
     ops.'push'(vpost)
     $S0 .= ' :flat'
-    $P1 = ops.'push_pirop'('call', 'tconstruct', table, kpost, $S0)
-    $P1.'result'($S1)
+    ops.'push_pirop'('call', 'tconstruct', table, kpost, $S0, 'result'=>$S1)
     goto FINISH
   NAMED_ARG:
     # Prepare a named argument for insertion into our table.
