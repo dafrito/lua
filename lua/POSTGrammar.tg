@@ -268,16 +268,17 @@ transform call (PAST;Op) :language('PIR') {
     push arglist, $S0
   ARGUMENT:
     unless it goto FINISH
-    $P0 = shift it
-    cpost = tree.'get'('post', $P0)
+    .local pmc argument
+    argument = shift it
+    cpost = tree.'get'('post', argument)
     ops.'push'(cpost)
     $S0 = cpost.'result'()
     if it goto PUSH_ARG
-    ($I0, $P0) = cpost.'has_call_in_last_op'()
+    ($I0, argument) = cpost.'has_call_in_last_op'()
     unless $I0 goto PUSH_ARG
     $S1 = '(' . $S0
     $S1 .= ' :slurpy)'
-    $P0.'result'($S1)
+    argument.'result'($S1)
     $S0 .= ' :flat'
   PUSH_ARG:
     push arglist, $S0
