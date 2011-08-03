@@ -936,9 +936,9 @@ transform constructor (PAST;Val) :language('PIR') {
     kpost.'push_pirop'('set', result, $S0)
     kpost.'result'(result)
     vpost = tree.'get'('post', $P0)
-    if it goto L4
+    if it goto SET_ARG
     $I0 = vpost.'has_call_in_last_op'()
-    unless $I0 goto L4
+    unless $I0 goto SET_ARG
     ops.'push'(kpost)
     $P0 = vpost.'pop'()
     vpost.'push'($P0)
@@ -956,7 +956,7 @@ transform constructor (PAST;Val) :language('PIR') {
     kpost = tree.'get'('post', $P1)
     $P1 = $P0[1]
     vpost = tree.'get'('post', $P1)
-  L4:
+  SET_ARG:
     # Insert this value into our table. Upon execution, table[kpost] will equal vpost.
     ops.'push'(kpost)
     ops.'push'(vpost)
