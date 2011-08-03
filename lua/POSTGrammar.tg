@@ -923,7 +923,7 @@ transform constructor (PAST;Val) :language('PIR') {
     i = 1
     it = node.'iterator'()
   L1:
-    unless it goto L2
+    unless it goto FINISH
     $P0 = shift it
     $I0 = does $P0, 'array'
     if $I0 goto L3
@@ -950,7 +950,7 @@ transform constructor (PAST;Val) :language('PIR') {
     $S0 .= ' :flat'
     $P1 = ops.'push_pirop'('call', 'tconstruct', table, kpost, $S0)
     $P1.'result'($S1)
-    goto L2
+    goto FINISH
   L3:
     $P1 = $P0[0]
     kpost = tree.'get'('post', $P1)
@@ -966,7 +966,7 @@ transform constructor (PAST;Val) :language('PIR') {
     key .= ']'
     ops.'push_pirop'('set', key, vpost)
     goto L1
-  L2:
+  FINISH:
     .return (ops)
 }
 
